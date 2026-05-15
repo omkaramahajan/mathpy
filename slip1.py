@@ -1,102 +1,94 @@
-import matplotlib.pyplot as plt
+'''from matplotlib.pyplot import *
+
+subjects = ['Mathematics','English','Biology','Physics','Chemistry']
+marks = [68,45,79,56,70]
+bar(subjects, marks, color='brown')
+xlabel("Subjects")
+ylabel("Marks")
+title("Bar Graph of Marks")
+show()'''
+
+
+'''from matplotlib.pyplot import *
 import numpy as np
-from scipy.optimize import bisect
+x = np.linspace(-10,10,100)
+y = x**3 + 10*x - 5
+plot(x,y,color='red',linestyle='--')
+xlabel("x")
+ylabel("y")
+title("Graph of y = x^3 + 10x - 5")
+grid()
+show()'''
+
+
+'''from matplotlib.pyplot import *
+import numpy as np
+x = np.linspace(-10,10,100)
+y = np.linspace(-10,10,100)
+X,Y = np.meshgrid(x,y)
+Z = X**2 + Y**2
+ax = axes(projection='3d')
+ax.plot_surface(X,Y,Z,color='pink')
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+title("Surface Plot")
+show()'''
+
+
+'''from sympy import *
+P = Point(7,2)
+Q = Point(1,8)
+print("Distance =", P.distance(Q))
+L = Line(P,Q)
+print("Slope =", L.slope)
+x,y = symbols('x y')
+print("Equation =", L.equation())'''
+
+'''from sympy import *
+A = Point(2,2)
+B = Point(4,2)
+C = Point(3,6)
+T = Triangle(A,B,C)
+print("Centroid =", T.centroid)
+T1 = T.translate(2,0)
+print("Translated Triangle =", T1)'''
+
+
+#Q2
+'''from matplotlib.pyplot import *
+x = [4,6,6,4,4]
+y = [3,3,5,5,3]
+x1 = x
+y1 = [-i for i in y]
+x2 = [-i for i in x]
+y2 = y
+plot(x,y,color='blue',label='Original')
+plot(x1,y1,color='red',label='X-axis reflection')
+plot(x2,y2,color='green',label='Y-axis reflection')
+axhline(0,color='black')
+axvline(0,color='black')
+xlabel("X-axis")
+ylabel("Y-axis")
+legend()
+grid()
+show()'''
+
+'''from matplotlib.pyplot import *
 from math import *
-from numpy import *
-#regula falsi method 2,3 
-def f(x):
-    return(x**3-5*x-9)
-a =eval(input("Enter the value of a:"))
-b =eval(input("Enter the value of b:"))
-n =eval(input("Enter the value of n:"))
-
-for i in range(1,n+1):
-    c = (a*f(b)-b*f(a))/(f(b)-f(a))
-    print([i,c])
-    if f(a)*f(c)<0:
-        b=c
-    elif f(c)*f(b)<0:
-        a=c
-    c1 = (a*f(b)-b*f(a))/(f(b)-f(a))
-
-    if abs(c1-c)<0.00001:
-        print("Accurate root is :",c)
-        break
-# Forward interpolation
-
-from math import *
-from numpy import *
-
-x=eval(input("Enter the value of x = "))
-y=eval(input("Enter the value of y = "))
-n=eval(input("Enter the value of n = "))
-xg=eval(input("Enter the values of x, Where interpolation is carried out as xg"))
-D = zeros((n,n+1))
-for i in range (0,n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
-for j in range (2,n+1):
-    for i in range (0, n-j+1):
-        D[i,j] = D[i+1,j-1]-D[i,j-1]
-print("Forward difference table is : ")
-print(D)
-
-h=x[1]-x[0]
-u=(xg-x[0])/h
-sum1=0
-pp=1
-for i in range(1,n):
-    sum1=sum1+(pp*D[0,i])
-    pp = pp*(u-(i-1))/(i)
-print(sum1)
-
-#trapozidal -3,3,12
-def f(x):
-     y=x**2
-     return(y)
-a=eval(input("Enter the value of a="))
-b=eval(input("Enter the value of b="))
-n=eval(input("Enter the value of n="))
-h=(b-a)/(n)
-add1=0
-add2=0
-for i in range (0,n+1):
-     x=a+i*h
-     y=f(x)
-     print([x,y])
-     if i==0 or i==n:
-          add1=add1+y
-     else:
-          add2=add2+y
-          I=(h/2)*(add1+2*add2)
-print("Value of definite integration I=",I)
-#lagrange's interpolation
-from math import*
-from numpy import*
-n=eval(input("Enter the value of n="))
-x=eval(input("Enter the value of x="))
-y=eval(input("Enter the value of y="))
-xg=eval(input("Enter the value of xg="))
-y_val=0
-for i in range (n):
-     l=1
-     for j in range (n):
-          if j!=1:
-               l=l*(xg-x[j])/(x[i]-x[j])
-     y_val=y_val+y[i]*l
-print("value of function at xg is=",y_val)
-# euler's modified method
-def f(x,y):
-     z=-x*(y**2)
-     return(z)
-x0=2
-y0=1
-h=0.1
-n=1
-for i in range (1,n+1):
-     x1=x0+h
-     y_predic=y0+h*f(x0,y0)
-     y_correct=y0+(h/2)*(f(x0,y0)+f(x0+h,y_predic))
-     print([i,x1,y_correct])
-     x0=x1
-     y0=y_correct
+r = 5
+n = 100
+theta = 2*pi/n
+x = r
+y = 0
+for i in range(n):
+    plot(x,y,'.',color='blue')
+    x_new = x*cos(theta) - y*sin(theta)
+    y_new = x*sin(theta) + y*cos(theta)
+    x = x_new
+    y = y_new
+xlabel("X-axis")
+ylabel("Y-axis")
+axis('equal')
+grid()
+show()'''
