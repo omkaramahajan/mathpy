@@ -1,105 +1,109 @@
-import matplotlib.pyplot as plt
+'''from matplotlib.pyplot import *
+sports = ['Cricket','Football','Badminton','Hockey','Other']
+students = [34,50,24,10,82]
+pie(students, labels=sports, autopct="%1.1f%%")
+title("Pie Chart of Students in Sports")
+show()'''
+
+'''from matplotlib.pyplot import *
 import numpy as np
-from scipy.optimize import bisect
+x = np.linspace(-5,5,100)
+y = x**2 + 5
+plot(x,y,color='green',linestyle='--')
+xlabel("x")
+ylabel("y")
+title("Graph of y = x^2 + 5")
+grid()
+show()'''
+
+'''from matplotlib.pyplot import *
+import numpy as np
+x = np.linspace(-20,20,100)
+y = np.linspace(-20,20,100)
+X,Y = np.meshgrid(x,y)
+Z = X**2 - Y**2
+ax = axes(projection='3d')
+ax.plot_wireframe(X,Y,Z,color='brown')
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+title("Wireframe Plot")
+show()'''
+
+'''from sympy import *
+P = Point(-4,5)
+# a) Scaling in x by 2
+P1 = P.scale(2,1)
+print("Scaling =", P1)
+# b) Reflection through y = x
+x,y = symbols('x y')
+L = Line(y - x)
+P2 = P.reflect(L)
+print("Reflection =", P2)
+# c) Translation in y by 7
+P3 = P.translate(0,7)
+print("Translation =", P3)'''
+
+'''from sympy import *
+A = Point(3,0)
+B = Point(0,4)
+C = Point(-3,0)
+T = Triangle(A,B,C)
+print("Area =", T.area)
+print("Perimeter =", T.perimeter)
+print("Angles =", T.angles)'''
+
+#Q2
+'''from matplotlib.pyplot import *
+from sympy import *
 from math import *
-from numpy import *
-#regula falsi method 0,1
-def f(x):
-    return(x**3 - 10*x**2 + 5)
-a =eval(input("Enter the value of a:"))
-b =eval(input("Enter the value of b:"))
-n =eval(input("Enter the value of n:"))
+A = Point(1,1)
+B = Point(-5,1)
+C = Point(-5,-4)
+D = Point(1,-4)
+# Original
+x = [A.x,B.x,C.x,D.x,A.x]
+y = [A.y,B.y,C.y,D.y,A.y]
+plot(x,y,color='blue',label='Original')
+# Rotation 90°
+tr1 = Matrix([[0,-1,0],[1,0,0],[0,0,1]])
+A1 = A.transform(tr1)
+B1 = B.transform(tr1)
+C1 = C.transform(tr1)
+D1 = D.transform(tr1)
+x1 = [A1.x,B1.x,C1.x,D1.x,A1.x]
+y1 = [A1.y,B1.y,C1.y,D1.y,A1.y]
+plot(x1,y1,color='red',label='Rotation')
+# Shear in x-direction (factor 3)
+tr2 = Matrix([[1,3,0],[0,1,0],[0,0,1]])
+A2 = A.transform(tr2)
+B2 = B.transform(tr2)
+C2 = C.transform(tr2)
+D2 = D.transform(tr2)
+x2 = [A2.x,B2.x,C2.x,D2.x,A2.x]
+y2 = [A2.y,B2.y,C2.y,D2.y,A2.y]
+plot(x2,y2,color='green',label='Shear')
+axhline(0,color='black')
+axvline(0,color='black')
+legend()
+grid()
+show()'''
 
-for i in range(1,n+1):
-    c = (a*f(b)-b*f(a))/(f(b)-f(a))
-    print([i,c])
-    if f(a)*f(c)<0:
-        b=c
-    elif f(c)*f(b)<0:
-        a=c
-    c1 = (a*f(b)-b*f(a))/(f(b)-f(a))
-
-    if abs(c1-c)<0.0001:
-        print("Accurate root is :",c)
-        break
-# Backward interpolation
-
-x=eval(input("Enter the value of x = "))
-y=eval(input("Enter the value of y = "))
-n=eval(input("Enter the value of n = "))
-xg=eval(input("Enter the values of x, Where interpolation is carried out as xg"))
-
-D = zeros((n,n+1))
-for i in range (0,n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
-for j in range (2,n+1):
-    for i in range (n-1, j-2,-1):
-        D[i,j] = D[i,j-1]-D[i-1,j-1]
-print("Backward difference table is : ")
-print(D)
-
-h=x[1]-x[0]
-u=(xg-x[-1])/h
-sum2=0
-pp=1
-for i in range(1,n):
-    sum2=sum2+(pp*D[-1,i])
-    pp=pp*(u+(i-1))/(i)
-print(sum2)
-#symphsons 1/3rd 1,7,12
-def f(x):
-     y=1/x
-     return(y)
-a=eval(input("Enter the value of a="))
-b=eval(input("Enter the value of b="))
-n=eval(input("Enter the value of n="))
-h=(b-a)/(n)
-sum1=0
-sum2=0
-sum3=0
-for i in range(0,n+1):
-     x=a+i*h
-     y=f(x)
-     print([x,f(x)])
-     if i==0 or i==n:
-          sum1=sum1+y
-     elif i%2==0:
-          sum2=sum2+y
-     else:
-          sum3=sum3+y
-          I=(h/3)*(sum1+2*sum2+4*sum3)
-print("Value of definite integration =",I)
-#divided difference table
+'''from matplotlib.pyplot import *
 from math import *
-from numpy import *
-
-n=eval(input("Enter the length of x as n="))
-x=eval(input("Enter the values of x="))
-y=eval(input("Enter the values of y="))
-D=zeros((n,n+1))
-
-for i in range(0,n):
-       D[i,0]=x[i]
-       D[i,1]=y[i]
-for j in range(2,n+1):
-       for i in range(0,n-j+1):
-           D[i,j]=(D[i+1,j-1]-D[i,j-1])/(x[i+j-1]-x[i])
-print("Divided difference table is as follows:")
-print(D)
-#runge kutta 2nd
-def f(x,y):
-     z= x + y
-     return(z)
-x0=0
-y0=1
-h=0.1
-n=3
-for i in range (1,n+1):
-     k1=h*f(x0,y0)
-     k2=h*f(x0+h,y0+k1)
-     x1=x0+h
-     y1=y0+(1/2)*(k1+k2)
-     print([i,x1,y1])
-     x0=x1
-     y0=y1
+r = 7
+n = 100
+theta = 2*pi/n
+x = r
+y = 0
+for i in range(n):
+    plot(x,y,'.',color='blue')
+    x_new = x*cos(theta) - y*sin(theta)
+    y_new = x*sin(theta) + y*cos(theta)
+    x = x_new
+    y = y_new
+xlabel("X-axis")
+ylabel("Y-axis")
+axis('equal')
+grid()
+show()'''
