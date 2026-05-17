@@ -1,92 +1,107 @@
-import matplotlib.pyplot as plt
+'''from matplotlib.pyplot import *
+subjects = ['Mathematics','English','Biology','Physics','Chemistry']
+marks = [45,35,85,50,60]
+barh(subjects, marks, color='brown')
+xlabel("Marks")
+ylabel("Subjects")
+title("Horizontal Bar Graph")
+show()'''
+
+'''from matplotlib.pyplot import *
 import numpy as np
-from scipy.optimize import bisect
+x = np.linspace(-5,5,100)
+y = x**3 - 3*x + 2
+plot(x,y,color='maroon',marker='>',linestyle='-')
+xlabel("x")
+ylabel("y")
+title("Graph of y = x^3 - 3x + 2")
+grid()
+show()'''
+
+'''from matplotlib.pyplot import *
+import numpy as np
+x = np.linspace(-20,20,100)
+y = np.linspace(-20,20,100)
+X,Y = np.meshgrid(x,y)
+Z = np.sqrt(X**2 + Y**2)
+ax = axes(projection='3d')
+ax.plot_surface(X,Y,Z,color='red')
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.set_zlabel("Z-axis")
+title("Surface Plot")
+show()'''
+
+'''from sympy import *
+L = Point(-5,0)
+M = Point(4,0)
+N = Point(9,0)
+# Collinearity
+print("Collinear =", Point.is_collinear(L,M,N))
+# Line through L and N
+line = Line(L,N)
+print("Slope =", line.slope)
+x,y = symbols('x y')
+print("Equation =", line.equation())'''
+
+'''from sympy import *
+P = RegularPolygon(Point(0,0),2,5)
+print("Area =", P.area)
+print("Perimeter =", P.perimeter)
+print("Centroid =", P.centroid)
+# Translation in y by 4
+P1 = P.translate(0,4)
+print("Translated Polygon =", P1)'''
+
+#Q2
+'''from matplotlib.pyplot import *
+from sympy import *
 from math import *
-from numpy import *
-#bisection method 0,1
-def f(x):
-    return ( 3*x - np.cos(x) - 1)
-a = eval(input("Enter the value of a="))
-b = eval(input("Enter the value of b="))
-n = eval(input("Enter the value of n="))
+A = Point(0,0)
+B = Point(1,0)
+C = Point(1,1)
+D = Point(0,1)
+# Original
+x = [A.x,B.x,C.x,D.x,A.x]
+y = [A.y,B.y,C.y,D.y,A.y]
+plot(x,y,color='blue',label='Original')
+# Combined transformation
+# a) Reflection x-axis
+T1 = Matrix([[1,0,0],[0,-1,0],[0,0,1]])
+# b) Rotation 45°
+T2 = Matrix([[cos(pi/4),-sin(pi/4),0],
+             [sin(pi/4), cos(pi/4),0],
+             [0,0,1]])
+# c) Scaling -3
+T3 = Matrix([[-3,0,0],[0,-3,0],[0,0,1]])
+T = T3*T2*T1
+A1 = A.transform(T)
+B1 = B.transform(T)
+C1 = C.transform(T)
+D1 = D.transform(T)
+x1 = [A1.x,B1.x,C1.x,D1.x,A1.x]
+y1 = [A1.y,B1.y,C1.y,D1.y,A1.y]
+plot(x1,y1,color='red',label='Transformed')
+axhline(0,color='black')
+axvline(0,color='black')
+legend()
+grid()
+show()'''
 
-for i in range(1,n+1):
-    c = (a+b)/2
-    print(c)
-    if f(a)*f(c)<0:
-        b=c
-    elif f(c)*f(b)<0:
-        a = c
-    c1 = (a+b)/2
-    if abs(c1-c)<0.001:
-        print("Accurate root is ",c)
-        break
-roots = c
-#divided difference table
+from matplotlib.pyplot import *
 from math import *
-from numpy import *
-
-n=eval(input("Enter the length of x as n="))
-x=eval(input("Enter the values of x="))
-y=eval(input("Enter the values of y="))
-D=zeros((n,n+1))
-
-for i in range(0,n):
-       D[i,0]=x[i]
-       D[i,1]=y[i]
-for j in range(2,n+1):
-       for i in range(0,n-j+1):
-           D[i,j]=(D[i+1,j-1]-D[i,j-1])/(x[i+j-1]-x[i])
-print("Divided difference table is as follows:")
-print(D)
-#trapozidal 0,np.pi,12
-def f(x):
-     y=np.sin(x)
-     return(y)
-a=eval(input("Enter the value of a="))
-b=eval(input("Enter the value of b="))
-n=eval(input("Enter the value of n="))
-h=(b-a)/(n)
-add1=0
-add2=0
-for i in range (0,n+1):
-     x=a+i*h
-     y=f(x)
-     print([x,y])
-     if i==0 or i==n:
-          add1=add1+y
-     else:
-          add2=add2+y
-          I=(h/2)*(add1+2*add2)
-print("Value of definite integration I=",I)
-#forward difference table
-x=eval(input("Enter the value of x = "))
-y=eval(input("Enter the value of y = "))
-n=eval(input("Enter the value of n = "))
-D = zeros((n,n+1))
-for i in range (0,n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
-for j in range (2,n+1):
-    for i in range (0, n-j+1):
-        D[i,j] = D[i+1,j-1]-D[i,j-1]
-print("Forward difference table is : ")
-print(D)
-# runge kutta 4th 
-def f(x,y):
-     z=y-x
-     return(z)
-x0=0
-y0=2
-h=0.1
-n=2
-for i in range (1,n+1):
-     k1=h*f(x0,y0)
-     k2=h*f(x0+h/2,y0+k1/2)
-     k3=h*f(x0+h/2,y0+k2/2)
-     k4=h*f(x0+h,y0+k3)
-     x1=x0+h
-     y1=y0+(1/6)*(k1+2*k2+2*k3+k4)
-     print([i,x1,y1])
-     x0=x1
-     y0=y1
+a = 3   # since y^2 = 4ax → 4a = 12 → a = 3
+n = 50
+t = 0
+dt = 1
+for i in range(n):
+    x = a*(t**2)
+    y = 2*a*t
+    plot(x,y,'.',color='blue')
+    plot(x,-y,'.',color='blue')
+    t = t + dt
+xlabel("X-axis")
+ylabel("Y-axis")
+title("Parabola y^2 = 12x")
+grid()
+show()
