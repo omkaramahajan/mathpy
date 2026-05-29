@@ -1,106 +1,106 @@
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.optimize import bisect
-from math import *
+#Q1
+'''from matplotlib.pyplot import *
+animals=['Wild Animals','Grazing Animals','Birds','Water Animals','Reptiles']
+values=[150,400,225,175,50]
+explode=[0.1,0.1,0.1,0.1,0.1]
+pie(values,labels=animals,autopct="%1.1f%%",explode=explode)
+title('Pie Chart of Animals')
+show()'''
+
+#Q2
+'''from matplotlib.pyplot import *
 from numpy import *
-#bisection method
-def f(x):
-    return ( x**2 + 2*x - 1)
-a = eval(input("Enter the value of a="))
-b = eval(input("Enter the value of b="))
-n = eval(input("Enter the value of n="))
+x=linspace(0,pi/2,50)
+y=tan(x)
+plot(x,y,color='green')
+xlabel('x')
+ylabel('y')
+title('Graph of y = tan(x)')
+show()'''
 
-for i in range(1,n+1):
-    c = (a+b)/2
-    print(c)
-    if f(a)*f(c)<0:
-        b=c
-    elif f(c)*f(b)<0:
-        a = c
-    c1 = (a+b)/2
-    if abs(c1-c)<0.001:
-        print("Accurate root is ",c)
-        break
-roots = c
-# Forward interpolation
-
-from math import *
+#Q3
+'''from matplotlib.pyplot import *
 from numpy import *
-
-x=eval(input("Enter the value of x = "))
-y=eval(input("Enter the value of y = "))
-n=eval(input("Enter the value of n = "))
-xg=eval(input("Enter the values of x, Where interpolation is carried out as xg"))
-D = zeros((n,n+1))
-for i in range (0,n):
-    D[i,0] = x[i]
-    D[i,1] = y[i]
-for j in range (2,n+1):
-    for i in range (0, n-j+1):
-        D[i,j] = D[i+1,j-1]-D[i,j-1]
-print("Forward difference table is : ")
-print(D)
-
-h=x[1]-x[0]
-u=(xg-x[0])/h
-sum1=0
-pp=1
-for i in range(1,n):
-    sum1=sum1+(pp*D[0,i])
-    pp = pp*(u-(i-1))/(i)
-print(sum1)
-#divided difference table
-from math import *
-from numpy import *
-
-n=eval(input("Enter the length of x as n="))
-x=eval(input("Enter the values of x="))
-y=eval(input("Enter the values of y="))
-D=zeros((n,n+1))
-
-for i in range(0,n):
-       D[i,0]=x[i]
-       D[i,1]=y[i]
-for j in range(2,n+1):
-       for i in range(0,n-j+1):
-           D[i,j]=(D[i+1,j-1]-D[i,j-1])/(x[i+j-1]-x[i])
-print("Divided difference table is as follows:")
-print(D)
-# euler's modified method
 def f(x,y):
-     z=y + x*y - x 
-     return(z)
-x0=0
-y0=2
-h=0.2
-n=2
-for i in range (1,n+1):
-     x1=x0+h
-     y_predic=y0+h*f(x0,y0)
-     y_correct=y0+(h/2)*(f(x0,y0)+f(x0+h,y_predic))
-     print([i,x1,y_correct])
-     x0=x1
-     y0=y_correct
-#symphsons 1/3rd
-def f(x):
-     y= 5*x**2 + 3*x + 2
-     return(y)
-a=eval(input("Enter the value of a="))
-b=eval(input("Enter the value of b="))
-n=eval(input("Enter the value of n="))
-h=(b-a)/(n)
-sum1=0
-sum2=0
-sum3=0
-for i in range(0,n+1):
-     x=a+i*h
-     y=f(x)
-     print([x,f(x)])
-     if i==0 or i==n:
-          sum1=sum1+y
-     elif i%2==0:
-          sum2=sum2+y
-     else:
-          sum3=sum3+y
-          I=(h/3)*(sum1+2*sum2+4*sum3)
-print("Value of definite integration =",I)
+    return -(x**3) - (y**3)
+x=linspace(1,10,100)
+y=linspace(1,10,100)
+X,Y=meshgrid(x,y)
+Z=f(X,Y)
+ax=axes(projection='3d')
+ax.plot_surface(X,Y,Z,color='blue')
+ax.set_xlabel('x axis')
+ax.set_ylabel('y axis')
+ax.set_zlabel('z axis')
+title('Surface Plot')
+show()'''
+
+#Q4
+'''from sympy import *
+A=Point(7,2)
+B=Point(3,-4)
+L1=Line(A,B)
+x,y=symbols('x y')
+L2=Line(Eq(2*x - y,1))
+angle=L1.angle_between(L2)*180/pi
+print("Angle between lines =",angle)'''
+
+#Q5
+'''from sympy import *
+A=Point(3,3)
+B=Point(3,6)
+C=Point(8,6)
+D=Point(7,2)
+poly=Polygon(A,B,C,D)
+P=Point(4,4)
+print("Point inside polygon =",poly.encloses_point(P))
+poly2=poly.scale(4,3)
+print("Scaled Polygon =",poly2)'''
+
+#Q2
+'''from sympy import *
+from matplotlib.pyplot import *
+A=Point(1,-2)
+B=Point(3,5)
+# Original
+plot([A.x,B.x],[A.y,B.y],color='blue')
+# Rotation pi
+T1=Matrix([[-1,0,0],[0,-1,0],[0,0,1]])
+A1=A.transform(T1)
+B1=B.transform(T1)
+# Scaling x by 7
+T2=Matrix([[7,0,0],[0,1,0],[0,0,1]])
+A2=A1.transform(T2)
+B2=B1.transform(T2)
+# Uniform scaling by 4
+T3=Matrix([[4,0,0],[0,4,0],[0,0,1]])
+A3=A2.transform(T3)
+B3=B2.transform(T3)
+plot([A3.x,B3.x],[A3.y,B3.y],color='red')
+axhline(0,color='black')
+axvline(0,color='black')
+grid()
+title('Line Transformation')
+show()'''
+
+
+'''from matplotlib.pyplot import *
+from math import *
+a=7
+n=50
+xmin=0
+xmax=100
+delta=(xmax-xmin)/(n-1)
+x1=xmin
+y1=sqrt(28*x1)
+for i in range(n):
+    plot(x1,y1,marker='.',color='blue')
+    plot(x1,-y1,marker='.',color='blue')
+    x2=x1+delta
+    y2=sqrt(28*x2) 
+    x1=x2
+    y1=y2
+xlabel('x axis')
+ylabel('y axis')
+title('Parabola y^2 = 28x')
+show()'''
